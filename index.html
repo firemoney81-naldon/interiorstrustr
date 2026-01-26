@@ -1,23 +1,510 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- JSON-LD Structured Data for FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "베란다 인테리어의 평균 비용은 얼마인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "베란다 인테리어 비용은 확장 여부, 마감재 종류(타일, 강마루 등), 단열 시공 범위, 조명 및 가구 선택에 따라 크게 달라집니다. 일반적으로 100만 원대 초반의 셀프/부분 인테리어부터 확장 시공을 포함한 500만 원 이상의 전체 리모델링까지 폭넓게 형성됩니다. 정확한 견적은 전문가 상담을 통해 받아보는 것이 좋습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "베란다 인테리어 시공 기간은 얼마나 걸리나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "베란다 인테리어 시공 기간은 시공 범위에 따라 다릅니다. 간단한 마감재 교체나 페인팅은 1~2일 내에 완료되지만, 베란다 확장이나 단열 보강 공사를 포함하는 전체 리모델링은 3~5일 정도 소요될 수 있습니다. 시공 규모에 따라 변동될 수 있으므로, 전문가와 정확한 일정을 상의해야 합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "베란다 확장 공사의 장점과 단점은 무엇인가요?",
+          "@id": "#확장장단점-답변",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "장점은 실내 공간이 넓어지고 개방감을 느낄 수 있다는 점입니다. 특히 거실이나 방과 연결된 공간 활용도가 크게 높아집니다. 단점으로는 결로 현상이나 단열 문제 발생 가능성이 있어 전문적인 시공이 필수적이며, 겨울철 난방비 증가 요인이 될 수 있습니다. 또한, 법적 기준을 준수해야 합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "베란다 인테리어 시 결로 현상을 예방하는 방법이 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "결로 현상은 실내외 온도차로 인해 발생하며, 베란다 인테리어 시 가장 중요하게 고려해야 할 부분입니다. 단열재 시공, 이중창 설치, 곰팡이 방지 페인트 사용 등이 기본 예방책입니다. 또한, 실내 습도 조절을 위한 환기를 자주 해주고 제습기를 사용하는 것도 도움이 됩니다."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* CSS 변수 설정 */
+        :root {
+            --primary-color: #4A6C6F; /* Deep Forest Green */
+            --secondary-color: #6A8EAE; /* Dusty Blue */
+            --accent-color: #C1D8D8; /* Light Aqua */
+            --text-color: #333333;
+            --bg-light: #F4F7F9;
+            --bg-dark: #334D5C; /* Dark Slate Blue */
+            --btn-cta: #D98B5D; /* Warm Terracotta */
+        }
+        
+        /* 폰트 설정 및 기본 스타일 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        
+        body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: var(--bg-light); color: var(--text-color); line-height: 1.7; font-weight: 300; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
+        
+        /* 헤더: 로고와 상위 메뉴 */
+        header { background-color: #fff; padding: 25px 0; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        header h1 { margin: 0; font-size: 2.2em; color: var(--primary-color); font-weight: 700; }
+        header h1 a { text-decoration: none; color: inherit; }
+        nav ul { list-style: none; padding: 0; margin: 0; display: flex; }
+        nav li { margin-left: 30px; }
+        nav a { text-decoration: none; color: var(--text-color); font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--btn-cta); }
+
+        /* 히어로 섹션: 핵심 정보와 CTA */
+        .hero { background-color: var(--bg-dark); color: #fff; padding: 100px 20px; text-align: center; background-image: url('https://via.placeholder.com/1920x600/4A6C6F/C1D8D8?text=Veranda+Interior+Hero+Image'); background-size: cover; background-position: center; }
+        .hero-overlay { background-color: rgba(0, 0, 0, 0.4); padding: 50px 20px; border-radius: 10px; }
+        .hero h1 { font-size: 3.5em; margin-bottom: 20px; font-weight: 700; line-height: 1.2; }
+        .hero p { font-size: 1.4em; margin-bottom: 40px; font-weight: 300; }
+        
+        /* CTA 버튼: 강렬한 시각적 피드백 */
+        .cta-btn { background-color: var(--btn-cta); color: #fff; padding: 18px 40px; font-size: 1.3em; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: background-color 0.3s, transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-decoration: none; display: inline-block; }
+        .cta-btn:hover { background-color: #e67e52; transform: translateY(-3px); }
+
+        /* 비교견적 폼: 시각적으로 돋보이게 */
+        .quote-form-box { background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin: -60px auto 40px; max-width: 800px; position: relative; }
+        .quote-form-box h2 { color: var(--primary-color); text-align: center; margin-bottom: 25px; font-size: 2em; font-weight: 700; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-grid label { display: block; margin-bottom: 8px; font-weight: 500; color: #555; }
+        .form-grid input, .form-grid select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1em; }
+        .form-full { grid-column: span 2; }
+        .form-full button { margin-top: 10px; width: 100%; }
+
+        /* 컨텐츠 섹션: 논리적이고 깔끔한 구분 */
+        .content-section { padding: 80px 0; background-color: #fff; margin-bottom: 20px; }
+        .content-section:nth-child(even) { background-color: var(--bg-light); }
+        .content-section h2 { font-size: 2.8em; color: var(--secondary-color); text-align: center; margin-bottom: 40px; font-weight: 700; position: relative; padding-bottom: 15px; }
+        .content-section h2::after { content: ''; display: block; width: 60px; height: 3px; background-color: var(--btn-cta); margin: 10px auto 0; }
+        .content-section h3 { font-size: 1.8em; color: var(--primary-color); margin-top: 40px; margin-bottom: 20px; font-weight: 500; }
+        
+        /* 텍스트 내용 강조 스타일 */
+        p { margin-bottom: 20px; font-size: 1.1em; color: #444; }
+        strong { font-weight: 700; color: var(--primary-color); }
+        ul { list-style-type: disc; margin-left: 20px; padding-left: 0; }
+        li { margin-bottom: 10px; }
+
+        /* 주요 특징 그리드 */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+        .feature-grid .item { background-color: #ffffff; padding: 30px; border-radius: 10px; text-align: center; transition: box-shadow 0.3s, transform 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .feature-grid .item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .feature-grid .item img { width: 60px; height: 60px; margin-bottom: 15px; filter: grayscale(100%) brightness(0) invert(1) sepia(1) hue-rotate(180deg) saturate(2); } /* Image placeholder styling */
+        .feature-grid .item h3 { color: var(--primary-color); font-size: 1.4em; margin-top: 0; }
+        .feature-grid .item p { font-size: 1em; color: #666; }
+
+        /* FAQ 섹션 */
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+        .faq-item h3 { cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1.3em; color: var(--primary-color); margin: 0; font-weight: 500; }
+        .faq-item h3::after { content: '+'; font-size: 1.5em; color: var(--secondary-color); transition: transform 0.3s; }
+        .faq-item.active h3::after { content: '-'; transform: rotate(180deg); }
+        .faq-item p { display: none; padding-top: 15px; color: #555; font-size: 1em; }
+        .faq-item.active p { display: block; }
+        
+        /* '함께 많이 찾는' 키워드 리스트 */
+        .keyword-section { background-color: var(--accent-color); padding: 50px 0; text-align: center; }
+        .keyword-section h2 { margin-bottom: 30px; color: var(--bg-dark); font-size: 2em; }
+        .keyword-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; max-width: 800px; margin: 0 auto; }
+        .keyword-list li { background-color: #fff; color: var(--primary-color); padding: 10px 20px; margin: 8px; border-radius: 25px; font-weight: 500; font-size: 0.95em; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: background-color 0.3s, color 0.3s; }
+        .keyword-list li:hover { background-color: var(--primary-color); color: #fff; }
+
+        /* 통계 표 및 그래프 */
+        .data-visualization { background-color: #fff; padding: 40px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .data-visualization h3 { border-left: 5px solid var(--btn-cta); padding-left: 15px; font-size: 1.6em; margin-bottom: 20px; }
+        .data-visualization table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 1em; }
+        .data-visualization table th, .data-visualization table td { border: 1px solid #e0e0e0; padding: 12px 15px; text-align: center; }
+        .data-visualization table th { background-color: var(--accent-color); color: var(--primary-color); font-weight: 500; }
+        .data-visualization table td { background-color: #fcfcfc; }
+        
+        /* 지역별 키워드 리스트 */
+        .region-list { columns: 3; column-gap: 20px; list-style: none; padding: 0; margin-top: 20px; font-size: 0.95em; }
+        .region-list li { background-color: #f0f0f0; padding: 8px 15px; margin-bottom: 8px; border-radius: 5px; color: var(--text-color); }
+
+        /* 푸터: 사이트 정보 및 링크 */
+        footer { background-color: var(--primary-color); color: #fff; text-align: center; padding: 40px 20px; font-size: 0.9em; margin-top: 40px; }
+        footer .container { max-width: 800px; }
+        footer a { color: #fff; text-decoration: none; margin: 0 10px; opacity: 0.8; }
+        footer a:hover { text-decoration: underline; opacity: 1; }
+        footer p { margin: 10px 0; font-size: 0.9em; line-height: 1.5; color: #f0f0f0; }
+
+        /* 반응형 디자인 */
+        @media (max-width: 1000px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-full { grid-column: span 1; }
+            .region-list { columns: 2; }
+        }
+        @media (max-width: 768px) {
+            header .container { flex-direction: column; }
+            nav ul { margin-top: 15px; }
+            nav li { margin: 0 10px; }
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.2em; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .content-section { padding: 50px 0; }
+            .content-section h2 { font-size: 2em; }
+            .region-list { columns: 1; }
+        }
+        @media (max-width: 480px) {
+            nav li { margin: 0 5px; font-size: 0.9em; }
+            .cta-btn { font-size: 1.1em; padding: 15px 30px; }
+            .hero-overlay { padding: 30px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1><a href="/">베란다인테리어 비교견적</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="#베란다트렌드">트렌드 분석</a></li>
+                    <li><a href="#비용가이드">비용 가이드</a></li>
+                    <li><a href="#시공팁">시공 팁</a></li>
+                    <li><a href="#faq">자주 묻는 질문</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-overlay">
+                    <h1>2026년 베란다 인테리어, 가성비 최저가 견적 찾기!</h1>
+                    <p>우리 집 숨겨진 공간, 베란다를 가치 있는 휴식처로 변화시키세요. <br>전국 베란다 리모델링 전문가 견적을 1분 만에 비교하고, 합리적인 가격으로 시공하세요.</p>
+                    <a href="#견적문의" class="cta-btn">무료 견적 1:1 상담 신청하기</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="견적문의">
+            <div class="container">
+                <div class="quote-form-box">
+                    <h2>우리 집 맞춤 베란다 인테리어 견적 비교 신청</h2>
+                    <p>간단한 정보 입력으로 **베란다리모델링 저렴한곳** 견적을 실시간으로 확인하고, 전문가와 상담하세요.</p>
+                    <form action="#" method="post">
+                        <div class="form-grid">
+                            <div>
+                                <label for="form-name">이름</label>
+                                <input type="text" id="form-name" placeholder="이름을 입력하세요" required>
+                            </div>
+                            <div>
+                                <label for="form-phone">연락처</label>
+                                <input type="tel" id="form-phone" placeholder="휴대폰 번호를 입력하세요" required>
+                            </div>
+                            <div>
+                                <label for="form-type">시공 유형 선택</label>
+                                <select id="form-type" required>
+                                    <option value="">-- 선택하세요 --</option>
+                                    <option value="확장">확장 공사</option>
+                                    <option value="부분">부분 인테리어 (바닥/벽체)</option>
+                                    <option value="전체">전체 리모델링 (확장+단열+마감)</option>
+                                    <option value="DIY">DIY 컨설팅</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="form-area">평수</label>
+                                <input type="number" id="form-area" placeholder="베란다 면적 (m² 또는 평)" required>
+                            </div>
+                            <div class="form-full">
+                                <label for="form-region">희망 시공 지역</label>
+                                <select id="form-region" required>
+                                    <option value="">-- 선택하세요 --</option>
+                                    <option value="서울">서울</option>
+                                    <option value="경기">경기</option>
+                                    <option value="인천">인천</option>
+                                    <option value="부산">부산</option>
+                                    <option value="대구">대구</option>
+                                    <option value="광주">광주</option>
+                                    <option value="대전">대전</option>
+                                    <option value="울산">울산</option>
+                                    <option value="세종">세종</option>
+                                    <option value="강원">강원</option>
+                                    <option value="충북">충북</option>
+                                    <option value="충남">충남</option>
+                                    <option value="전북">전북</option>
+                                    <option value="전남">전남</option>
+                                    <option value="경북">경북</option>
+                                    <option value="경남">경남</option>
+                                    <option value="제주">제주</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="cta-btn form-full">무료 맞춤 견적 받기</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="베란다트렌드">
+            <div class="container">
+                <h2>베란다 인테리어, 단순한 창고가 아닌 생활 공간의 확장</h2>
+                <p>
+                    2026년 현재, 베란다는 더 이상 단순히 세탁기나 잡동사니를 보관하는 공간이 아닙니다. 팬데믹 이후 '홈 오피스'와 '재택' 문화가 확산되면서, 베란다는 집 안의 작은 정원(플랜테리어), 나만의 카페, 독서 공간, 심지어 재택 근무를 위한 독립적인 업무 공간으로 진화하고 있습니다. 이러한 변화는 주거 만족도를 높이고, 부동산 가치 상승에도 긍정적인 영향을 미칩니다.
+                </p>
+                <p>
+                    <strong>베란다 인테리어의 장점</strong>은 크게 세 가지로 요약할 수 있습니다. 첫째, 실내 공간의 확장입니다. 특히 거실과 베란다를 연결하는 확장은 개방감을 극대화하고, 주방 옆 베란다는 다용도실 기능을 강화할 수 있습니다. 둘째, 정서적 안정감을 제공합니다. 플랜테리어(식물 인테리어)를 통해 자연을 가까이하며 스트레스를 해소할 수 있습니다. 셋째, 실용적인 수납 공간을 확보할 수 있습니다. 벤치형 수납장이나 맞춤 가구를 활용하여 깔끔하게 정리할 수 있습니다.
+                </p>
+
+                <h3>2026년 베란다 인테리어 인기 트렌드 TOP 3</h3>
+                <div class="feature-grid">
+                    <div class="item">
+                        <img src="https://via.placeholder.com/60/D98B5D/fff?text=ICON1" alt="카페 스타일 아이콘">
+                        <h3>1. 홈 카페 스타일</h3>
+                        <p>바닥재로 타일이나 우드를 깔고, 아늑한 조명과 작은 테이블을 배치하여 집에서도 분위기 좋은 카페를 연출합니다. 특히 <strong>저렴한 타일</strong>을 활용하면 가성비 좋게 고급스러운 느낌을 낼 수 있습니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://via.placeholder.com/60/D98B5D/fff?text=ICON2" alt="플랜테리어 아이콘">
+                        <h3>2. 플랜테리어 (Greenery)</h3>
+                        <p>식물을 활용한 인테리어로, 공기 정화 효과와 함께 정서적 안정감을 줍니다. 다양한 화분과 행잉 플랜트를 배치하여 도심 속 작은 숲을 만듭니다. <strong>베란다 꾸미기</strong> 핵심 트렌드입니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://via.placeholder.com/60/D98B5D/fff?text=ICON3" alt="멀티 공간 아이콘">
+                        <h3>3. 멀티 기능성 공간</h3>
+                        <p>베란다를 단순한 휴식 공간이 아닌, 홈 오피스, 독서 공간, 또는 취미 활동 공간으로 활용합니다. 벤치형 수납장과 데스크를 조합하여 공간 효율을 극대화합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="비용가이드">
+            <div class="container data-visualization">
+                <h2>베란다 인테리어 비용: 평균 견적과 가성비 분석 (2026년 기준)</h2>
+                <p>
+                    <strong>베란다 리모델링 가격</strong>은 시공 범위와 마감재에 따라 천차만별입니다. 특히 <strong>베란다 확장 공사</strong>를 진행할 경우 단열 공사와 창호 교체가 필수적이므로 비용이 크게 상승할 수 있습니다. 저희는 2026년도 최신 데이터를 기반으로 시공 유형별 <strong>평균 견적</strong>을 분석하여 합리적인 의사결정을 돕고자 합니다.
+                </p>
+
+                <h3>시공 범위별 예상 비용 (2026년 기준, 3~4평 기준)</h3>
+                <table summary="베란다 인테리어 시공 범위별 예상 비용 비교표">
+                    <thead>
+                        <tr>
+                            <th>시공 유형</th>
+                            <th>주요 시공 내용</th>
+                            <th>예상 비용 (평균)</th>
+                            <th>특징 및 장점</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>부분 인테리어 (DIY 포함)</td>
+                            <td>바닥재 교체(데크타일/페인트), 조명 설치, 가구 배치</td>
+                            <td>50만원 ~ 150만원</td>
+                            <td><strong>저렴한 비용</strong>으로 분위기 전환 가능. 시공 기간 짧음.</td>
+                        </tr>
+                        <tr>
+                            <td>기본 리모델링</td>
+                            <td>타일/마루 시공, 벽체 페인팅, 단열필름, 샷시 교체(부분)</td>
+                            <td>200만원 ~ 400만원</td>
+                            <td>실용성과 심미성을 모두 충족하는 <strong>가성비 좋은 인테리어</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td>베란다 확장 공사</td>
+                            <td>단열 공사(벽/바닥/천장), 바닥난방 시공, 창호 전체 교체, 마감재</td>
+                            <td>500만원 ~ 800만원 이상</td>
+                            <td>실내 공간 극대화. <strong>전문적인 기술과 비용</strong> 필요.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>마감재 선택에 따른 베란다 견적 차이 분석</h3>
+                <p>
+                    베란다 인테리어의 핵심은 마감재 선택입니다. 특히 바닥재는 베란다의 분위기와 실용성을 결정합니다. <strong>베란다 바닥 타일</strong>은 내구성이 뛰어나고 청소가 쉽지만, 시공 비용이 비교적 높습니다. 반면 <strong>나무 데크 타일</strong>은 설치가 간편하고 따뜻한 느낌을 주며, 셀프 시공이 가능하여 <strong>비용 절감</strong>에 유리합니다. 벽체 마감재로는 페인트나 탄성코트가 보편적이며, 단열 보강을 위해 단열 보드를 추가하는 경우가 많습니다.
+                </p>
+                <p>
+                    <strong>창호 교체</strong>는 베란다 인테리어 시 가장 큰 비용을 차지하는 부분입니다. 베란다 창호는 외부 환경에 직접 노출되므로 단열 성능이 우수한 이중창을 선택하는 것이 중요합니다. 특히 <strong>결로 현상</strong>을 방지하고 난방 효율을 높이기 위해서는 창호의 기밀성, 단열성이 필수입니다.
+                </p>
+
+                <h3>저렴한 인테리어 팁: 싼곳을 찾는 방법</h3>
+                <ul>
+                    <li><strong>셀프 인테리어 병행:</strong> 바닥 데크 설치나 조명 교체, 페인팅 등은 직접 시도하여 <strong>인건비</strong>를 절약할 수 있습니다.</li>
+                    <li><strong>복수 견적 비교:</strong> 최소 3곳 이상의 업체에서 견적을 받아보세요. 동일한 시공 내용이라도 <strong>베란다견적</strong> 차이가 발생할 수 있습니다.</li>
+                    <li><strong>비수기 활용:</strong> 인테리어 비수기(여름철, 연말)에 시공을 진행하면 비용을 절감할 수 있는 프로모션을 활용할 수 있습니다.</li>
+                    <li><strong>자재 공동 구매:</strong> 커뮤니티 등을 통해 자재를 공동 구매하면 <strong>자재 비용</strong>을 낮출 수 있습니다.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section" id="시공팁">
+            <div class="container">
+                <h2>실패 없는 베란다 인테리어 시공 팁: 장단점 비교</h2>
+                <p>
+                    베란다 인테리어는 주택의 구조와 기능을 이해하고 접근해야 합니다. 특히 아파트의 경우, 베란다 공간은 피난 공간으로 활용될 수 있어 <strong>법적 제약 사항</strong>을 반드시 확인해야 합니다. <strong>베란다 인테리어 장점</strong>을 극대화하면서 단점을 최소화하는 시공 팁을 알려드립니다.
+                </p>
+
+                <h3>1. 결로와 곰팡이 방지: 단열 시공이 핵심</h3>
+                <p>
+                    베란다 인테리어 시 가장 큰 문제점 중 하나는 <strong>결로 현상</strong>입니다. 결로는 실내외 온도차로 인해 창문이나 벽체에 물방울이 맺히는 현상이며, 방치하면 곰팡이와 벽체 손상의 원인이 됩니다.
+                </p>
+                <ul>
+                    <li><strong>단열재 선택:</strong> 아이소핑크(EPS 보드)나 스티로폼 단열재를 사용한 벽체 단열 공사는 필수입니다. 특히 외벽과 접하는 부분은 단열에 더 신경 써야 합니다.</li>
+                    <li><strong>탄성코트 시공:</strong> 벽체 마감재로 탄성코트를 칠하면 곰팡이 발생을 억제하고 청결을 유지하는 데 도움이 됩니다.</li>
+                    <li><strong>환기 습관:</strong> 아무리 좋은 시공을 해도 주기적인 환기가 없으면 결로는 재발합니다. 하루 1~2회 10분 이상 창문을 열어 습기를 제거해 주세요.</li>
+                </ul>
+
+                <h3>2. 베란다 확장, 신중하게 결정해야 하는 이유</h3>
+                <p>
+                    거실 확장 시 <strong>베란다 단점</strong>이 발생할 수 있습니다. 실내 면적은 넓어지지만, 단열 성능이 제대로 확보되지 않으면 겨울철 난방비 폭탄을 맞을 수 있습니다. 또한, 확장된 공간의 바닥 난방 시공(온돌)이 필수적이며, 아파트의 경우 소방 관련 법규를 준수해야 합니다. <strong>베란다 인테리어 견적</strong>에서 확장을 제외한 <strong>부분 리모델링</strong>만으로도 충분한 효과를 볼 수 있습니다.
+                </p>
+
+                <h3>3. 가구와 조명 선택 팁</h3>
+                <p>
+                    베란다 가구는 습기에 강한 소재를 선택해야 합니다. 방수 처리된 원목, 라탄, 알루미늄 등의 소재가 적합하며, 벤치형 수납장을 활용하면 수납과 좌석을 동시에 해결할 수 있습니다. 조명은 베란다의 분위기를 결정짓는 중요한 요소입니다. 은은한 간접 조명(펜던트 조명, 레일 조명)이나 무드등을 활용하여 아늑한 공간을 연출해 보세요.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-section keyword-section">
+            <div class="container">
+                <h2>함께 많이 찾는 베란다 인테리어 관련 키워드</h2>
+                <ul class="keyword-list">
+                    <li>#베란다꾸미기</li>
+                    <li>#베란다확장가격</li>
+                    <li>#베란다리모델링비용</li>
+                    <li>#아파트베란다인테리어</li>
+                    <li>#베란다바닥타일</li>
+                    <li>#베란다셀프인테리어</li>
+                    <li>#베란다단열공사</li>
+                    <li>#베란다인테리어추천</li>
+                    <li>#베란다곰팡이제거</li>
+                    <li>#결로방지시공</li>
+                    <li>#저렴한베란다인테리어</li>
+                    <li>#베란다정원꾸미기</li>
+                    <li>#화단철거비용</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>지역별 베란다 인테리어 전문가 찾기</h2>
+                <p>베란다 인테리어는 지역별로 특화된 업체가 많습니다. 특히 <strong>서울, 경기, 인천</strong> 수도권 지역과 <strong>부산, 대구, 광주</strong> 등의 광역시에서는 다양한 시공 사례와 <strong>저렴한 견적</strong>을 비교할 수 있습니다. 저희는 전국 주요 지역의 베란다 인테리어 전문가를 연결해 드립니다.</p>
+                
+                <h3>전국 주요 시공 지역 (30개 이상 키워드)</h3>
+                <ul class="region-list">
+                    <li>서울 강남구 베란다 인테리어</li>
+                    <li>서울 서초구 베란다 리모델링</li>
+                    <li>서울 송파구 베란다 확장 비용</li>
+                    <li>경기 수원시 베란다 꾸미기</li>
+                    <li>경기 성남시 베란다 인테리어</li>
+                    <li>경기 용인시 베란다 견적</li>
+                    <li>경기 고양시 베란다 저렴한곳</li>
+                    <li>경기 화성시 베란다 시공</li>
+                    <li>인천 송도 베란다 리모델링</li>
+                    <li>인천 청라 베란다 확장</li>
+                    <li>부산 해운대구 베란다 인테리어</li>
+                    <li>부산 수영구 베란다 시공 가격</li>
+                    <li>대구 수성구 베란다 리모델링</li>
+                    <li>대구 달서구 베란다 꾸미기</li>
+                    <li>광주 광산구 베란다 인테리어</li>
+                    <li>대전 유성구 베란다 시공 전문가</li>
+                    <li>울산 남구 베란다 리모델링</li>
+                    <li>세종시 베란다 인테리어 추천</li>
+                    <li>강원 강릉시 베란다 견적</li>
+                    <li>충북 청주시 베란다 인테리어</li>
+                    <li>충남 천안시 베란다 시공</li>
+                    <li>전북 전주시 베란다 리모델링</li>
+                    <li>전남 순천시 베란다 꾸미기</li>
+                    <li>경북 포항시 베란다 인테리어</li>
+                    <li>경남 창원시 베란다 확장 비용</li>
+                    <li>경남 김해시 베란다 저렴한곳</li>
+                    <li>제주 서귀포 베란다 인테리어</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section" id="faq" style="background-color: #fcfcfc;">
+            <div class="container faq-list">
+                <h2>자주 묻는 질문 (FAQ)</h2>
+                <div class="faq-item">
+                    <h3 id="q1">베란다 인테리어 시공 시 꼭 알아야 할 법규가 있나요?</h3>
+                    <p>
+                        네, 아파트의 경우 화재 시 대피 공간(경량 칸막이)이 설치된 베란다는 임의로 철거하거나 시공할 수 없습니다. 또한, 베란다 확장 시 주택법 및 건축법상 행위허가 또는 신고 대상이 될 수 있습니다. 무단으로 확장할 경우 원상 복구 명령을 받을 수 있으니, 시공 전 전문가와 상담하여 법적 기준을 준수해야 합니다. <a href="http://www.law.go.kr/법령/주택법" target="_blank">주택법 바로가기 (법제처)</a>
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q2">베란다 인테리어 후 결로 현상이 발생했을 때 대처 방법은 무엇인가요?</h3>
+                    <p>
+                        결로 현상이 발생하면 우선 실내 습도를 낮추는 것이 중요합니다. 주기적인 환기와 제습기 사용을 생활화해야 합니다. 또한, 곰팡이가 발생했다면 곰팡이 제거제를 사용하고, 단열 성능을 재확인하여 미흡할 경우 추가 단열 시공을 고려해야 합니다. 초기 시공 단계에서 꼼꼼한 단열 공사를 진행하는 것이 최선입니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q3">베란다 인테리어 DIY를 위한 팁을 알려주세요.</h3>
+                    <p>
+                        DIY로 <strong>저렴한 베란다 꾸미기</strong>를 원한다면, 바닥재는 조립식 데크 타일이나 페인트 시공을 추천합니다. 데크 타일은 누구나 쉽게 설치할 수 있으며, 페인팅은 탄성코트 대신 수성 페인트를 사용하여 원하는 색상으로 변화를 줄 수 있습니다. 조명은 레일 조명이나 스트링 라이트를 활용하여 분위기를 연출할 수 있습니다. <a href="https://namu.wiki/w/DIY" target="_blank">DIY에 대한 추가 정보 (나무위키)</a>
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q4">베란다 인테리어 시공업체 선정 시 주의해야 할 점은 무엇인가요?</h3>
+                    <p>
+                        업체 선정 시 시공 경험과 포트폴리오를 확인하고, A/S 기간과 범위를 명확히 약정해야 합니다. 특히 단열 공사를 포함할 경우, 단열재의 종류와 시공 방식을 꼼꼼히 체크하고, 견적서에 세부 항목이 명확하게 기재되어 있는지 확인해야 합니다. <strong>베란다 인테리어 추천</strong>은 주변 지인 추천이나 시공 후기가 좋은 업체를 선택하는 것이 안전합니다. <a href="http://www.k-apt.go.kr/" target="_blank">국토교통부 공동주택관리정보시스템 (K-apt)</a>을 통해 관리규약을 확인하는 것도 좋습니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q5">베란다 인테리어 시공 후 관리는 어떻게 해야 하나요?</h3>
+                    <p>
+                        시공 후에는 주기적인 청소와 관리가 필수입니다. 특히 바닥 타일 틈새나 창문 주변은 곰팡이가 생기기 쉬우므로, 곰팡이 방지제를 정기적으로 도포해 주는 것이 좋습니다. 식물을 키우는 경우, 과도한 물주기는 습도 증가의 원인이 되므로 주의해야 합니다. <a href="https://www.forest.go.kr/" target="_blank">산림청: 실내 식물 관리 정보</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" style="padding: 60px 0;">
+            <div class="container data-visualization">
+                <h2>베란다 인테리어 성공 사례 (2026년 최신)</h2>
+                <p>
+                    2026년 베란다 인테리어 트렌드는 '기능성'과 '심미성'의 조화입니다. 단순히 예쁘게 꾸미는 것을 넘어, 실질적으로 생활에 도움이 되는 공간으로 변화시키는 것이 핵심입니다. 저희가 분석한 <strong>베란다 인테리어 내돈내산 후기</strong>를 바탕으로 성공적인 시공 사례를 소개합니다.
+                </p>
+                <img src="https://via.placeholder.com/1000x300/F0F4F8/333?text=베란다+인테리어+성공+사례+이미지" alt="베란다 인테리어 성공 사례 이미지" style="width:100%; margin: 20px 0; border-radius: 8px;">
+
+                <p>
+                    <strong>사례 1: 거실 확장형 홈 오피스</strong> - <strong class="text-secondary">서울 강남구</strong> 고객님은 거실 베란다를 확장하여 재택근무용 홈 오피스로 꾸미셨습니다. 확장 시공 시 단열에 특히 신경 쓰고, 바닥 난방을 연결하여 겨울에도 따뜻하게 작업할 수 있도록 했습니다. 창가에는 벤치형 수납장을 설치하여 수납과 휴식을 동시에 해결했습니다. <strong class="text-secondary">베란다 확장 비용</strong>은 예상보다 높았지만, 실내 공간 활용도를 극대화하여 만족도가 높았습니다.
+                </p>
+                <p>
+                    <strong>사례 2: 가성비 좋은 플랜테리어</strong> - <strong class="text-secondary">경기 성남시</strong> 고객님은 <strong>저렴한 베란다 꾸미기</strong>를 원하셔서 셀프 인테리어를 진행했습니다. 바닥에는 조립식 데크 타일을 깔고, 벽체는 친환경 페인트로 마감했습니다. 다양한 식물과 라탄 가구를 배치하여 도심 속 작은 정원을 만들었습니다. <strong class="text-secondary">베란다 인테리어 가격</strong>을 최소화하면서도 훌륭한 결과물을 얻었습니다.
+                </p>
+                <p>
+                    <strong>사례 3: 주방 연결형 다이닝 공간</strong> - <strong class="text-secondary">부산 해운대구</strong> 고객님은 주방 옆 베란다를 확장하여 다이닝 공간을 만들었습니다. 샷시 교체와 단열 공사를 통해 겨울철에도 따뜻하게 식사를 즐길 수 있도록 했으며, 펜던트 조명으로 분위기를 더했습니다. <strong class="text-secondary">베란다 리모델링 장점</strong>인 공간 활용의 극대화를 보여주는 사례입니다.
+                </p>
+            </div>
+        </section>
+        
+        <section class="content-section" style="padding: 60px 0; text-align: center; background-color: var(--primary-color);">
+            <div class="container">
+                <h2 style="color: #fff; border-bottom: none; margin-bottom: 30px;">베란다 인테리어, 지금 바로 시작하세요!</h2>
+                <p style="color: #f0f0f0; font-size: 1.2em; margin-bottom: 40px;">우리 집 가치를 높이는 가장 현명한 방법, 전문가와 상담하고 최적의 견적을 받아보세요.</p>
+                <a href="#견적문의" class="cta-btn">무료 견적 1:1 상담 신청하기</a>
+            </div>
+        </section>
+
     </main>
-  </body>
-</html>
+
+    <script>
+        // FAQ 토글 기능 (사용자 경험 개선)
+        document.querySelectorAll('.faq-item h3').forEach(item => {
+            item.addEventListener('click', event => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+    </script>
+
+  
